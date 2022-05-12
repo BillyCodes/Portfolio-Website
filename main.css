@@ -1,0 +1,1107 @@
+/*Base styles*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root { 
+    --body-font-size: 1.6rem;
+    --body-font-color: #5f5f5f;
+    --body-font-family: 'Open Sans', sans-serif;
+    --heading-font-family: 'Playfair Display', sans-serif;
+    --light-color: #f4f4f4;
+    --dark-color: #262626;
+    --light-gray-color: #f2f3f7;
+    --orange-color: #ec5453;
+    --blue-color: #2c98f0;
+    --yellow-color: #f9bf3f;
+    --purple-color: #a84cb8;
+    --dark-blue-color: #4054b2;
+}
+
+html {
+    font-size: 62.5%; /* 15:15 - Makes it easier to zoom on the page and scale than if we used pixels. Also makes the math easier with rem units */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font-family);
+    color: var(--body-font-color); /* Can change the color from here */
+    font-size: var(--body-font-size);
+}
+
+a {
+    display: block; /* Allows us to use margin top and bottom */
+    text-decoration: none;
+}
+
+/* Navigation Styles */
+.hamburger-menu {
+    display: none; /* Got rid of the hamburger menu */
+}
+
+.nav {
+    width: 20rem;
+    height: 100vh;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    position: fixed; /* Keeps the navbar fixed while scrolling */
+    top: 0; /* Keeps th navbar connected to the top side of the screen */
+    left: 0; /* Keeps th navbar connected to the top side of the screen */
+    z-index: 1000; /* Makes sure the navigation stays on top of all the content we have */ 
+    display: flex; /* ALlows us to align things */
+    flex-direction: column;
+}
+
+.intro {
+    font-family: var(--heading-font-family);
+    text-align: center;
+    margin: 5rem 0;
+    line-height: 1.5;
+}
+
+.intro-heading {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.intro-subhead {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    position: relative; /* We are going to be using psuedo elements that are going to be positioned absolute within this nav item to create an effect */
+}
+
+.nav-item::before { /* Psuedo Element -  */
+    content: ""; /* Important, because whatever your doing isn't going ot show up */
+    width: 100%; /* Stretches all the way across */
+    height: 100%; /* Stretches from top to bottom */
+    background-color: rgba(255, 255, 255, .1);
+    position: absolute;
+    top: 0; /* CSS Positioning */
+    left: 0; /* CSS Positioning */
+    z-index: -1; /* Makes sure this psuedo element is behind its parent */
+    transform: scaleX(0);  /* Makes it so that it goes back to the initial position and we are not going to be able to see it */
+    transform-origin: left; /* 27:26 Cause the hover effect to begin on the left */
+    transition: transform .5s cubic-bezier(.83, 0, 0.17, 1); /* 27:00 ALmost finalizes the hovering transition effect */
+} 
+
+.nav-item:hover::before { /* Creating a hover effect. When it is hovered over, we are targeting the before psuedo element  */
+    transform: scaleX(1); /* Sets it back to 100% of whatever the default element is */
+}
+
+.nav-item:not(:last-child) { /* 28:34 - Applying a border to every nav item except the last one */
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+}
+
+.nav-link { /* 28:40 */
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--light-color);
+    padding: 1rem;
+}
+
+.social-media-wrapper { /* 29:29 - We specified that the main container is going to be a flex. We are going to move this area down */
+    margin-bottom: 3rem;
+    text-align: center;
+    margin: auto;
+}
+
+.fm-wrapper {
+    margin-top: 10rem;
+}
+
+.social-media span { /* 30:34 */
+    display: block;
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+}
+
+.sm-link {
+    font-size: 3.6rem;
+    color: var(--light-color);
+    transition: color .5, transform .5s;
+}
+
+.sm-link:hover {
+    color: #999;
+    transform: translateY(-3px); /* 33:14 */
+}
+
+.sm-link:nth-child(2) { /* 33:50 - Gives us separation */
+    margin: 0 2rem;
+}
+
+.copyright-notice {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, .5);
+}
+
+/* Main Styles */ /* 35:20 */
+.main {
+    width: calc(100% - 20rem); /* 37:00 - Looking at the inspector, we have some empty white space */
+    transform: translateX(20rem); /* We have some empty white space */
+}
+
+section:not(.hero) { /* 38:30 Every section is selected except the ones with the class of hero */
+    padding: 5rem 0;
+}
+
+/* Hero Styles */ /* 39:10 */
+.hero {
+    height: 100vh;
+    background: url(./images/hero_background.jpeg) bottom center/cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.name-heading { /* 41:48 */
+    position: absolute; /* Moves freely */
+    top: 15%; /* Was 5% */
+    left: 13%; /* Was 31% */
+    transform: translateX(-50%, -50%);
+    font-size: 20vw;
+    font-family: var(--heading-font-family);
+    color: var(--light-color);
+    z-index: 1;
+    user-select: none;
+}
+
+.hero-person-image {
+    max-width: 30%; /* Changed the size of the image 49%*/
+    user-select: none;
+    -webkit-user-drag: none;
+    margin-top: auto;
+    position: relative;
+    z-index: 1; /* Moves the text to behind the hero image */
+}
+
+.scroll-down { /* 47:00 */
+    position: absolute;
+    bottom: .6rem;
+    left: 50%;
+    transform: translateX(-50%); /* Study More */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+    margin-bottom: 1.1rem; /* Height of the scroll down */
+}
+
+.mouse {
+    height: 5rem;
+    width: 2.5rem;
+    border: 2px solid var(--light-color);
+    border-radius: 2rem;
+    display: flex;
+}
+
+.mouse span { /* Somewhere around 50:00 */
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--light-color);
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 2rem;
+    animation: move-wheel 1s linear infinite; /* 55:20 */
+}
+
+.arrow span {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    border-right: 2px solid var(--light-color);
+    border-bottom:  2px solid var(--light-color);
+    transform: rotate(45deg); /* 53:21 Creates the arrow */
+    animation: /* arrow-down */ 1s linear infinite;  /* 57:24 */
+}
+
+@keyframes move-wheel { /* 54:00 */
+    0% {
+        opacity: 1;
+        transform: translateY(-1rem);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+}
+
+@keyframes arrow-down {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: .25;
+    }
+    50% {
+        opacity: .5;
+    }
+    75% {
+        opacity: .75;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(2rem);
+    }
+}
+
+/* About Styles */ /* 1:05:00 */
+.container {
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+.heading-group {
+    color: var(--dark-color);
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+}
+
+.section-head-small {
+    display: block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+}
+
+.section-head-large {
+    font-size: 1.8rem;
+    font-family: var(--heading-font-family);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.intro-description p:not:last-child {
+    margin-bottom: 2rem;
+}
+
+.intro-description p span {
+    font-family: var(--heading-font-family);
+    font-weight: bold;
+    color: var(--dark-color);
+    letter-spacing: 1px;
+}
+
+.call-to-action {
+    background-color: var(--yellow-color);
+    margin-top: 5rem;
+    padding: 3rem;
+    color: var(--dark-color);
+}
+
+.call-to-action p {
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1rem 3rem;
+    display: inline-block;
+    transition: background-color .5s;
+}
+
+.cta-btn {
+    color: var(--dark-color);
+    border: 1px solid var(--dark-color);
+}
+
+.cta-btn:hover {
+    color: var(--light-color);
+    background-color: var(--dark-color);
+}
+
+/* My Expertise */   /* 1:23:28 */ 
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); /* 1:24:03 - Allows us to have a grid that is fully responsive without the need of media queries. The repeat function repeates it over and over, autofit allows us to take up as much space as we need to fit the content. The minmax value, 30rem is the minimum value that we want the cards to be and 1fr is going to be the maximum value. */
+    gap: 2.5rem; /* Gives us some separation */
+}
+
+.my-expertise .grid-item {
+    background-color: #fff;
+    box-shadow: 0 .5rem 2rem rgba(0, 0, 0, .1);
+    padding: 2rem;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    margin: 1rem;
+}
+
+.grid-item.orange {
+    border-bottom-color: var(--orange-color);
+}
+
+.grid-item.blue {
+    border-bottom-color: var(--blue-color);
+}
+
+.grid-item.yellow {
+    border-bottom-color: var(--yellow-color);
+}
+
+.grid-item.purple {
+    border-bottom-color: var(--purple-color);
+}
+
+.grid-item.dark-blue {
+    border-bottom-color: var(--dark-blue-color);
+}
+
+.orange i {
+    color: var(--orange-color);
+}
+
+.blue i {
+    color: var(--blue-color);
+}
+
+.yellow i {
+    color: var(--yellow-color);
+}
+
+.item-icon {
+    display: grid;
+    font-size: 3.6rem;
+    margin-bottom: 1rem;
+}
+
+.item-heading {
+    font-size: 2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.margin-top {
+    margin-top: 5rem;
+}
+
+.item-skill { /* 1:32:00 */
+    width: calc(100% + 1rem); /* Learn More */
+    height: 5rem;
+    position: absolute;
+    top: 1rem;
+    left: -1rem;
+    text-align: center;
+}
+
+.item-skill::before {
+    content: "";
+    position: absolute;
+    top: -1rem;
+    left: -.99rem;
+    border: 1rem solid transparent;
+    z-index: 1;
+}
+
+.orange .item-skill {
+    background-color: var(--orange-color);
+}
+
+.orange .item-skill::before { /* 1:37:24 */
+    border-right-color: var(--orange-color);
+}
+
+.blue .item-skill {
+    background-color: var(--blue-color);
+}
+
+.blue .item-skill::before { /* 1:37:24 */
+    border-right-color: var(--blue-color);
+}
+
+.yellow .item-skill {
+    background-color: var(--yellow-color);
+}
+
+.yellow .item-skill::before { /* 1:37:24 */
+    border-right-color: var(--yellow-color);
+}
+
+.purple .item-skill {
+    background-color: var(--purple-color);
+}
+
+.purple .item-skill::before { /* 1:37:24 */
+    border-right-color: var(--purple-color);
+}
+
+.dark-blue .item-skill {
+    background-color: var(--dark-blue-color);
+}
+
+.dark-blue .item-skill::before { /* 1:37:24 */
+    border-right-color: var(--dark-blue-color);
+}
+
+.skill-name {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--light-color);
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.skill-description {
+    margin-top: 5rem;
+    padding: 3rem 0;
+    line-height: 2;
+}
+
+/* Motto Styling */ /* 1:45:29 */
+.motto {
+    height: 35vh;
+    background: url(./images/section_background.jpeg) bottom/cover;
+    position: relative;
+    z-index: 1; /* Stays behind the text but not behind the parent */
+}
+
+.motto::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.motto .container {
+    height: 100%;
+    display: flex;
+}
+
+.quote-wrapper {
+    margin: auto;
+    max-width: 50rem;
+    text-align: center;
+    color: var(--light-color);
+}
+
+.quote {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--light-color);
+    padding: .5rem;
+    position: relative;
+}
+
+.quote::before,
+.quote::after {
+    position: absolute;
+    font-size: 15rem;
+    width: 5rem;
+    height: 5rem;
+    font-family: sans-serif;
+}
+
+.quote::before {
+    content: open-quote;
+    top: -5rem;
+    left: -6rem;
+}
+
+.quote::after {
+    content: close-quote;
+    top: -.5rem;
+    right: -6rem;
+}
+
+.quote-by {
+    display: block;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+/* Work Experience */ /* 1:56:38 */
+.timeline {
+    position: relative;
+}
+
+.timeline::before,
+.timeline::after,
+.timeline-item::before,
+.timeline-item::after {
+    content: "";
+    position: absolute;
+}
+
+.timeline::before { /* The line that goes down */
+    width: .5rem;
+    height: 100%;
+    background-color: var(--light-gray-color);
+    border-radius: 1rem;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.timeline::after {
+    width: 2rem;
+    height: 2rem;
+    border: .5rem solid var(--light-gray-color);
+    border-radius: 50%;
+    bottom: -2.5rem;
+    left: -1.2rem;
+}
+
+.timeline-item {
+    background-color: var(--light-gray-color);
+    padding: 2.2rem;
+    margin-left: 3.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.timeline-item::before {
+    top: .5rem;
+    left: -2rem;
+    border: 1rem solid transparent;
+    border-right-color: var(--light-gray-color);
+}
+
+.timeline-item::after {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--light-gray-color);
+    border-radius: 50%;
+    top: -.3px;
+    left: -4.7rem;
+}
+
+.timeline-heading {
+    margin-bottom: 2rem;
+}
+
+.timeline-entry-name {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--dark-color);
+    text-transform: uppercase;
+}
+
+/* My Portfolio */ /* 2:12:20 */
+.my-portfolio .grid {
+    display: grid; /* Researched this */
+    grid-template-columns: repeat(3, 1fr); /* repeat(auto-fit, minmax(50rem, 1fr)); */ /* 2:13:00 - The pictures started to overflow */
+    grid-template-rows: repeat(2, 1fr);
+} 
+
+.my-portfolio .grid-item {
+    min-height: 35rem;
+    position: relative; /* We will position things inside */
+    overflow: hidden;
+    height: 10rem; /* Figured this out */
+}
+
+.my-portfolio .portfolio-item-image {
+    width: 100%; /* Of parent */
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.portfolio-item-info {
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue-color);
+    color: var(--light-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity .5s; /* Study More */
+}
+
+.portfolio-item-info:hover {
+    opacity: 1;
+}
+
+.project-name {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin-bottom: .7rem;
+    transform: translateY(-2rem);
+    transition: .5s;
+}
+
+.project-name span {
+    font-weight: 300;
+    opacity: .5;
+}
+
+.project-type {
+    font-size: 1.3rem;
+    opacity: .5;
+    transform: translateY(2rem);
+    transition: .5s;
+}
+
+.portfolio-item-info:hover, .project-name,
+.portfolio-item-info:hover, .project-type {
+    transform: translateY(0);
+}
+
+.info-cta {
+    margin-top: auto;
+}
+
+.info-btn {
+    color: var(--light-color);
+    border: 1px solid var(--light-color);
+    margin: 5px;
+}
+
+.info-btn:hover {
+    color: var(--dark-color);
+    background-color: rgba(255, 255, 255, .7);
+    border-color: transparent;
+}
+
+.btn-blue {
+    background-color: var(--blue-color);
+    color: var(--light-color);
+}
+
+.btn-blue:hover {
+    background-color: #2977b1;
+}
+
+.load-more .btn {
+    margin-top: 2.5rem;
+    padding: 1rem 5rem;
+}
+
+/* Contact Styles */ /* 2:37:25 */
+.contact-info-wrapper {
+    display: flex;
+    flex-direction: column; /* Added in myself */
+    align-items: flex-start; /* Added in myself */
+    flex-wrap: wrap; 
+    margin-top: -30px;
+}
+
+.contact-info {
+    flex-basis: 45%;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.cii1 {
+    margin-right: 43px;
+}
+
+.info-item-icon {
+    background-color: var(--light-gray-color);
+    display: flex;
+    width: 10rem;
+    font-size: 5rem;
+    color: var(--blue-color);
+    border-radius: 3px;
+    justify-content: center; /* Added in myself */
+}
+
+.info-item-icon {
+    margin: auto;
+}
+
+.data-wrapper {
+    margin-left: 0;
+}
+
+.dw1 {
+    margin-bottom: 20px;
+    margin-top: -15px;
+}
+
+.dw2 {
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+.info-item-data {
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+.contact-form {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.contact-form .input,
+.contact-form textarea{
+    width: 99%;
+    background-color: var(--light-gray-color);
+    font-family: var(--body-font-family);
+    color: var(--body-font-color);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    margin-left: 10px;
+}
+
+.contact-form .btn {
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Media Queries */ /* 2:44:35 */
+@media screen and (max-width: 1030px) {
+    .nav {
+        transform: translateX(-27rem);
+        transition: transform .5;
+    }
+
+    .is-open .nav {
+        transform: translateX(0);
+    }
+
+    .hamburger-menu {
+        display: flex;
+        width: 5rem;
+        height: 5rem;
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        font-size: 2.6rem;
+        cursor: pointer;
+        transition: transform;
+        z-index: 2000;
+    }
+
+    .hamburger-menu {
+        margin: auto;
+    }
+
+    .close {
+        display: none;
+    }
+
+    .is-open .hamburger-menu {
+        transform: translateX(21rem);
+    }
+
+    .is-open .close {
+        display: block;
+    }
+
+    .is-open .open {
+        display: none;
+    }
+
+    .main {
+        width: 100%;
+        transform: initial;
+    }
+
+    .hero {
+        height: 80vh;
+    }
+
+    .hero::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 999;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity .5s;
+    }
+
+    .is-open .hero::after {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .name-heading {
+        font-size: 25vw;
+    }
+
+    .portfolio-item-info {
+        background-color: rgba(0, 0, 0, .5);
+        opacity: 1;
+    }
+
+    .project-name {
+        transform: translateY(0);
+    }
+
+    .project-type {
+        transform: translateY(0);
+    }
+
+    .info-btn:first-child {
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .grid,
+    .my-portfolio .grid {
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hero {
+        height: 50rem;
+    }
+    .call-to-action p {
+        font-size: 2rem;
+    }
+
+    .motto {
+        height: 60vh;
+    }
+
+    .quote::before,
+    .quote::after {
+        font-size: 10rem;
+    }
+
+    .quote::before {
+        top: -4rem;
+        left: -3rem;
+    }
+
+    .quote::after {
+        bottom: -3rem;
+        right: -3rem;
+    }
+
+    .quote-by {
+        margin-top: 4rem;
+    }
+
+    .timeline-entry-name {
+        display: block;
+        font-size: 1.6rem;
+    }
+
+    .timeline-heading {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1000px) {
+    .nav {
+        overflow-y: scroll;
+    }
+
+    .hero {
+        height: initial;
+        min-height: 100vh;
+    }
+}
+
+@media screen and (min-width: 1295px) {
+    html {
+        font-size: 75%;
+    }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
